@@ -1,0 +1,1 @@
+Encomage Core extension
