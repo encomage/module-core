@@ -3,9 +3,7 @@
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
-                <resource id="Encomage_Core::menu" title="Encomage" translate="title" sortOrder="30">
-                    <resource id="Encomage_Core::configuration_group" title="Configuration" translate="title" sortOrder="100"/>
-                </resource>
+                <resource id="Encomage_Core::menu" title="Encomage" translate="title" sortOrder="30"/>
             </resource>
         </resources>
     </acl>
