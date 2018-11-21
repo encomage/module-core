@@ -10,5 +10,14 @@
                 sortOrder="30"
                 resource="Encomage_Core::menu"
         />
+        <add
+                id="Encomage_Core::settings"
+                title="Encomage Core Settings"
+                translate="title"
+                module="Encomage_Core"
+                sortOrder="200"
+                parent="Encomage_Core::menu"
+                resource="Encomage_Core::menu"
+        />
     </menu>
 </config>
