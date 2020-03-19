@@ -1,10 +1,10 @@
 /* Encomage menu icon */
-.admin__menu .level-0[data-ui-id="menu-encomage-core-menu"] > a:before {
-    content: url('../images/encomage-logo.png');
+.admin__menu .item-menu.parent.level-0[data-ui-id="menu-encomage-core-menu"] > a:before {
+    content: url('../images/encomage-logo.png')!important;
 }
-.admin__menu .level-0[data-ui-id="menu-encomage-core-menu"]._active > a:before {
-    content: url('../images/encomage-logo-hover.png');
+.admin__menu .item-menu.parent.level-0[data-ui-id="menu-encomage-core-menu"]._active > a:before {
+    content: url('../images/encomage-logo-hover.png')!important;
 }
-.admin__menu .level-0[data-ui-id="menu-encomage-core-menu"]:hover > a:before {
-    content: url('../images/encomage-logo-hover.png');
+.admin__menu .item-menu.parent.level-0[data-ui-id="menu-encomage-core-menu"]:hover > a:before {
+    content: url('../images/encomage-logo-hover.png')!important;
 }
