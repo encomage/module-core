@@ -1,7 +1,11 @@
 <?php
+
 namespace Encomage\Core\Plugin;
 
-use Magento\Framework\App\ProductMetadataInterface;
+use Encomage\Core\Helper\Data as Helper;
+use Magento\Backend\Model\Menu\Item;
+use Magento\Backend\Block\Menu as MenuBlock;
+use Magento\Backend\Model\Menu as MenuModel;
 
 /**
  * Class RemoveEmptyItems
@@ -10,43 +14,36 @@ use Magento\Framework\App\ProductMetadataInterface;
  */
 class RemoveEmptyItems
 {
-    /**
-     * @var \Magento\Framework\App\ProductMetadataInterface
-     */
-    protected $productMetadata;
+    private const MINIMAL_MAGENTO_VERSION = "2.3.0";
+    private const MENU_ELEMENT_ID = "Encomage_Core::menu";
 
     /**
-     * RemoveEmptyItems constructor.
-     *
-     * @param \Magento\Framework\App\ProductMetadataInterface $productMetadata
+     * @var Helper
      */
-    public function __construct(ProductMetadataInterface $productMetadata)
+    protected $helper;
+
+    /**
+     * @param Helper $helper
+     */
+    public function __construct(Helper $helper)
     {
-        $this->productMetadata = $productMetadata;
+        $this->helper = $helper;
     }
 
     /**
-     * @return string
-     */
-    public function getMagentoVersion()
-    {
-        return $this->productMetadata->getVersion();
-    }
-
-    /**
-     * @param \Magento\Backend\Block\Menu $object
-     * @param \Magento\Backend\Model\Menu $menu
-     * @param int $level
-     * @param int $limit
-     * @param array $colBrakes
+     * @param MenuBlock $object
+     * @param MenuModel $menu
+     * @param $level
+     * @param $limit
+     * @param $colBrakes
      * @return array
      */
-    public function beforeRenderNavigation(\Magento\Backend\Block\Menu $object, \Magento\Backend\Model\Menu $menu, $level = 0, $limit = 0, $colBrakes = [])
+    public function beforeRenderNavigation(MenuBlock $object, MenuModel $menu, $level = 0, $limit = 0, $colBrakes = [])
     {
-        if (!$level && $this->getMagentoVersion() == '2.3.0') {
-            /** @var \Magento\Backend\Model\Menu\Item $menuItem */
+        if (!$level && version_compare($this->helper->getMagentoVersion(), self::MINIMAL_MAGENTO_VERSION) >= 0) {
+            /** @var Item $menuItem */
             foreach ($menu->getArrayCopy() as $menuItem) {
-                if ($menuItem->getId() == 'Encomage_Core::menu' && (!$menuItem->hasChildren() || count($menuItem->getChildren()) < 2)) {
+                if ($menuItem->getId() == self::MENU_ELEMENT_ID && (!$menuItem->hasChildren() || count($menuItem->getChildren()) < 2)) {
                     $child = $menuItem->getChildren()->getFirstAvailable();
                     if (!$child->hasChildren()) {
                         $menu->remove($menuItem->getId());
